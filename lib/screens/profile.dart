@@ -460,6 +460,7 @@ class _ProfileState extends State<Profile> {
   // }
 
   buildCountersRow() {
+    print('country iddd ==== ${country_id.$}');
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -554,7 +555,8 @@ class _ProfileState extends State<Profile> {
                   placeholder: 'assets/1.jpg', //todo git img url from api
                   image: 'http://www.schilthuis.com/app/uploads/2015/04/Generic_Placeholder_-_Profile.jpg', //AppConfig.BASE_PATH + "${avatar_original.$}",
                   fit: BoxFit.fill,
-                )),
+                ),
+                ),
           ),
         ),
         Padding(

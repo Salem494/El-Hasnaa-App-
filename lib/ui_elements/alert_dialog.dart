@@ -20,7 +20,7 @@ class _ChosesCountryState extends State<ChosesCountry> {
   @override
   void initState() {
     // TODO: implement initState
-    fetchData = fetchCountryCat();
+    fetchData =CountryRepo().fetchCountryCat();
     super.initState();
   }
 

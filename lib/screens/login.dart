@@ -4,6 +4,7 @@ import 'package:elhasnaa/my_theme.dart';
 import 'package:elhasnaa/repositories/get_login.dart';
 import 'package:elhasnaa/screens/main.dart';
 import 'package:elhasnaa/screens/registration.dart';
+import 'package:elhasnaa/screens/select_country_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -50,7 +51,7 @@ class _LoginState extends State<Login> {
      ));
 
      if(is_logged_in.$){
-       Navigator.push(context, MaterialPageRoute(builder: (context)=>Main()));
+       Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectCountry()));
      }else{
        Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
      }

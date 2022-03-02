@@ -52,8 +52,8 @@ class ProductGridView extends StatelessWidget {
                     crossAxisSpacing: 3.0
                 ),
                 itemBuilder: (context,i){
-                print('iiiiiiiii:${i}');
-                print('llllllllenght:${cats.length}');
+                // print('iiiiiiiii:${i}');
+                // print('llllllllenght:${cats.length}');
                   return InkWell(
                     onTap: (){
                       onClick(context,i);

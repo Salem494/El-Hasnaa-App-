@@ -16,6 +16,8 @@ import 'dart:async';
 import 'package:provider/provider.dart';
 import 'package:shared_value/shared_value.dart';
 
+import 'screens/select_country_screen.dart';
+
 main() async {
   // ));
   WidgetsFlutterBinding.ensureInitialized();
@@ -85,6 +87,7 @@ class _MyAppState extends State<MyApp> {
               locale: provider.locale,
               supportedLocales: LangConfig().supportedLocales(),
               home:Splash(),
+              //Splash(),
               // ProductDetails(product:Products.fromJson(proTest),),
               //
               //,const CategoryDetais()
