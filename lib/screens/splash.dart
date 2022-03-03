@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:elhasnaa/helpers/shared_value_helper.dart';
 import 'package:elhasnaa/screens/main.dart';
+import 'package:elhasnaa/screens/register_screen.dart';
 import 'package:elhasnaa/screens/registration.dart';
 import 'package:elhasnaa/ui_elements/alert_dialog.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     Timer(const Duration(seconds: 5),(){
 
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
 
 
 //        if(country_id.$ == "" ){
