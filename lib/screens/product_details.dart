@@ -57,6 +57,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   var _variant = "";
   var _totalPrice;
   var _singlePrice;
+  String? _favId;
   //var _singlePriceString;
   int _quantity = 1;
   int _stock = 0;
@@ -86,7 +87,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     // print("product id : ${widget.id}");
     // fetchProductDetails();
     if (is_logged_in.$ == true) {
-
+      
       await fetchWishlistItems();
       fetchWishListCheckInfo();
     }
@@ -163,6 +164,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   fetchWishlistItems() async {
+    _wishlistItems.clear();
     var wishlistResponse = await Favorites().getWishList(user_id.$);
     _wishlistItems.addAll(wishlistResponse);
     //_wishlistInit = false;
@@ -185,9 +187,12 @@ class _ProductDetailsState extends State<ProductDetails> {
     //_isInWishList = wishListCheckResponse.is_in_wishlist;
     _wishlistItems.forEach((element){
       print("${element.id}=? ${widget.product.id!}");
-      if(element.id==widget.product.id!){
+      if(element.prodId==widget.product.id!){
         print("its in wish lisssst");
-        setState(() { _isInWishList=true;});
+        setState(() { 
+          _isInWishList=true;
+          _favId=element.id;
+          });
 
       }
     });
@@ -195,40 +200,41 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 
   addToWishList() async {
-    Future<String> wishListCheckResponse =Favorites().addFavourite(widget.product.id!);
+    bool wishListCheckResponse =await Favorites().addFavourite(widget.product.id!);
 
     // await WishListRepository().add(product_id: widget.id);
 
     //print("p&u:" + widget.id.toString() + " | " + _user_id.toString());
-    wishListCheckResponse.then((value){
-      if(value.compareTo("Error")==0)
-      {
-        _isInWishList = true;
-      }else{
-        _isInWishList=false;
-      }
-    });
+    // wishListCheckResponse.then((value){
+    //   _isInWishList = true;
+    // });
+    if(wishListCheckResponse){
+      _isInWishList = true;
+    }
+    fetchWishlistItems();
 
-    setState(() {});
+    //setState(() {});
   }
 
-  // removeFromWishList() async {
-  //    var  wishListCheckResponse =
-  //       await Favorites().removeFavourite(widget.product.id!);
+  removeFromWishList() async {
+    fetchWishListCheckInfo();
+     bool  wishListCheckResponse =
+        await Favorites().removeFavourite(_favId!);
 
-  //   //print("p&u:" + widget.id.toString() + " | " + _user_id.toString());
-  //   //_isInWishList = wishListCheckResponse.is_in_wishlist;
+    //print("p&u:" + widget.id.toString() + " | " + _user_id.toString());
+    //_isInWishList = wishListCheckResponse.is_in_wishlist;
 
-  //     wishListCheckResponse.then((value){
-  //     if(value.compareTo("Error")==0)
-  //     {
-  //       _isInWishList = true;
-  //     }else{
-  //     _isInWishList=false;
-  //   }
-  //   });
-  //   setState(() {});
-  // }
+      
+      if(wishListCheckResponse)
+      {
+        _isInWishList = false;
+        fetchWishlistItems();
+      }else{
+      _isInWishList=true;
+    }
+    
+    //setState(() {});
+  }
 
   onWishTap() {
     if (is_logged_in.$ == false) {
@@ -239,17 +245,16 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
 
     if (_isInWishList) {
-
-      setState(() {
+ 
+       removeFromWishList();
+       setState(() {
 
       });
-      // removeFromWishList();
     } else {
-
-      setState(() {
-        _isInWishList = true;
-      });
       addToWishList();
+      //  setState(() {
+      //   _isInWishList = true;
+      // });
     }
   }
 

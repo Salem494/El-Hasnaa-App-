@@ -12,7 +12,7 @@ class Favorites{
 
   List<FavModel> wishList=[];
 
-  Future<String> addFavourite(String prodId) async{
+  Future<bool> addFavourite(String prodId) async{
     final String url = 'https://alhasnaa.site/api/add_to_favorite.php?user_id=${user_id.$}&prod_id=${prodId}';
 
     Response response = await http.get(Uri.parse(url),);
@@ -20,10 +20,10 @@ class Favorites{
       //print('add to favvvvvvvvv successssss  ${response.body}');
       //print('Favv:${Products.fromJson(json.decode(response.body))}');
       // Products.fromJson(json.decode(response.body));
-      return "Success";
+      return true;
     }else{
       print(response.statusCode);
-      return "Error";
+      return false;
     }
   }
 
@@ -48,17 +48,17 @@ class Favorites{
     return wishList;
   }
 
-  Future<String> removeFavourite(String prodId) async {
-    String url = "https://alhasnaa.site/api/delete_favorite.php?user_id=${user_id.$}&prod_id=${prodId}";
+  Future<bool> removeFavourite(String favId) async {
+    String url = "https://alhasnaa.site/api/delete_favorite.php?id=$favId";
     Response response = await http.delete(Uri.parse(url));
 
     if(response.statusCode==200){
 
       print('deletttte responseee${response.body}');
-      return "Success";
+      return true;
     }
     else{
-      return "Error";
+      return false;
     }
   }
 }

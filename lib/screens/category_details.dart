@@ -446,10 +446,10 @@ class _CategoryDetaisState extends State<CategoryDetais> {
                           height: MediaQuery.of(context).size.width * 0.2,
                           width: MediaQuery.of(context).size.width * 0.2,
                           color: Colors.grey,
-                          child: snapshot.data![i].catImg!.isNotEmpty
+                          child: snapshot.data![i].catIcone!.isNotEmpty
                               ? Image.network(
                             'https://alhasnaa.site/files/' +
-                                snapshot.data![i].catImg!, /////
+                                snapshot.data![i].catIcone!, /////
                             fit: BoxFit.cover,
                             width: double.infinity,
                           )

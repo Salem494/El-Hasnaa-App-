@@ -59,8 +59,8 @@ class _WishlistState extends State<Wishlist> {
     _wishlistItems.removeAt(index);
     setState(() {});
 
-    // var wishlistDeleteResponse =
-    //     await WishListRepository().delete(wishlist_id: wishlist_id);
+    var wishlistDeleteResponse =
+        await Favorites().removeFavourite(_wishlistItems[index].id!);
 
     // if (wishlistDeleteResponse.result == true) {
     //   ToastComponent.showDialog(wishlistDeleteResponse.message, context,

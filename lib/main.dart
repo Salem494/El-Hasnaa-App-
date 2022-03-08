@@ -5,6 +5,7 @@ import 'package:elhasnaa/lang_config.dart';
 import 'package:elhasnaa/my_theme.dart';
 import 'package:elhasnaa/provider/alert_provider.dart';
 import 'package:elhasnaa/provider/locale_provider.dart';
+import 'package:elhasnaa/screens/category_details.dart';
 import 'package:elhasnaa/screens/register_screen.dart';
 import 'package:elhasnaa/screens/registration.dart';
 import 'package:elhasnaa/screens/splash.dart';
@@ -88,7 +89,7 @@ class _MyAppState extends State<MyApp> {
               ],
               locale: provider.locale,
               supportedLocales: LangConfig().supportedLocales(),
-              home:Splash(),
+              home: CategoryDetais(),
               //RegisterScreen(),
               //Splash(),
               // ProductDetails(product:Products.fromJson(proTest),),

@@ -2,6 +2,7 @@ import 'package:elhasnaa/helpers/shared_value_helper.dart';
 import 'package:elhasnaa/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 class MyOrdersScreen extends StatefulWidget {
   const MyOrdersScreen({Key? key}) : super(key: key);
@@ -236,6 +237,49 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
         // ),
 
       ],
+    );
+  }
+  
+  buildOrderCard (BuildContext context){
+    return Card(
+      child: Column(
+        children: [
+           BuildListTile(title: "OrderID ",trailing: "xdtr77"),
+           SizedBox(height: 6,),
+           BuildListTile(title: "Order Time ",trailing: "5/3/2021 09:35:00"),
+           SizedBox(height: 6,),
+           Row(children: [
+             BuildListTile(title: "Total Price ",trailing: "700"),
+             SizedBox(width: 10,),
+             Text("Pound",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+           ],),
+           SizedBox(height: 6,),
+           BuildListTile(title: "Notes ",trailing: "This notes for test "),
+           SizedBox(height: 6,),
+        ],
+      ),
+    );
+  }
+
+  BuildListTile({required String title, required String trailing}){
+    return Row(
+            children: [
+              customText(txt: "$title", fw: FontWeight.bold, fs: 16),
+              SizedBox(width: 6,),
+              customText(txt: ": ", fw:FontWeight.bold, fs: 16),
+              customText(txt: "$trailing", fw: FontWeight.normal, fs: 16),
+            ],
+          );
+         
+  }
+
+  customText({required String txt,required FontWeight fw,required double fs}){
+    return Text('$txt',style: 
+    TextStyle(
+      fontWeight: fw,
+      fontSize: fs,
+      overflow: TextOverflow.ellipsis
+    ),
     );
   }
 }

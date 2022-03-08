@@ -12,23 +12,27 @@ class CartRepo{
   List<CartModel> _cart = [];
 
   Future<String> addCart({required String productsId,quant,colr,size}) async{
-    //  var post_body = jsonEncode({
-    //   "id": productsId,
-    //   "variant": "$variant",
-    //   "user_id": "$user_id",
-    //   "quantity": "$quantity",
-    //   "cost_matrix": AppConfig.purchase_code
-    // });
-
+  
     String url = 'https://alhasnaa.site/api/add_prod_to_cart.php?user_id=${user_id.$}&prod_id=$productsId&prod_num=$quant&prod_size=$size&prod_color=$colr';
 
     Response response = await http.get(Uri.parse(url),
     );
     if(response.statusCode == 200){
-      //  print(colr);
-      //  print('add to carrrrd successssss  ${response.body}');
-      //  print('PROOOO:${Products.fromJson(json.decode(response.body))}');
-      //Products.fromJson(json.decode(response.body));
+    
+      return "200";
+    }else{
+      print(response.statusCode);
+      return "400";
+    }
+  }
+
+  Future<String> buyCart({required totalPrice,notes,colr,size}) async{
+  
+    String url = 'https://alhasnaa.site/api/add_order.php?user_id=${user_id.$}&total=$totalPrice&notes=$notes&country_id=${country_id.$}';
+
+    Response response = await http.get(Uri.parse(url),
+    );
+    if(response.statusCode == 200){
       return "200";
     }else{
       print(response.statusCode);
