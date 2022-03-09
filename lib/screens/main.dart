@@ -30,6 +30,7 @@ class _MainState extends State<Main> {
     //CategoryList(
     //  is_base_category: true,
     //),
+   // Scaffold(),
     Home(),
     CategoryDetais(homCatTabedInd: 0,),
     Home(),

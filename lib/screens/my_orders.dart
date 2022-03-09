@@ -1,5 +1,8 @@
+import 'package:elhasnaa/data_model/my_orders_model.dart';
 import 'package:elhasnaa/helpers/shared_value_helper.dart';
 import 'package:elhasnaa/my_theme.dart';
+import 'package:elhasnaa/repositories/add_cart_repo.dart';
+import 'package:elhasnaa/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -12,12 +15,30 @@ class MyOrdersScreen extends StatefulWidget {
 }
 
 class _MyOrdersScreenState extends State<MyOrdersScreen> {
-  int _tabedButton=0;
+  int _tabedButton = 0;
+  List<MyOrders> myOrdersList = [];
+
+  fetchMyOrders() async {
+    var ordersResponse = await CartRepo().getMyOrders();
+    myOrdersList.addAll(ordersResponse!);
+
+
+
+    setState(() {});
+  }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchMyOrders();
+  }
 
   @override
   Widget build(BuildContext context) {
     var _statusBarheight = MediaQuery.of(context).padding.top;
-
+    // fetchAll();
     return Directionality(
       textDirection: app_language_rtl.$ ? TextDirection.rtl : TextDirection.ltr,
       child: Scaffold(
@@ -48,6 +69,133 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                       padding: const EdgeInsets.all(8),
                       child: buildBottomBar(context),
                     ),
+                    SizedBox(
+                      height: 0,
+                    ),
+                    is_logged_in.$
+                        ? myOrdersList.isEmpty
+                            ? Center(
+                                child: CircularProgressIndicator(
+                                  color: MyTheme.dark_grey,
+                                ),
+                              )
+                            : (_tabedButton == 0)
+                                ? Expanded(
+                                    child: ListView.builder(
+                                        itemCount: myOrdersList.length,
+                                        itemBuilder: (context, index) {
+                                          if (myOrdersList.isEmpty) {
+                                            return customText(
+                                                txt: "No confirmed Orders",
+                                                fw: FontWeight.bold,
+                                                fs: 16);
+                                          } else {
+                                            if (myOrdersList[index]
+                                                    .orderSet ==
+                                                "0") {
+                                              return buildOrderCard(
+                                                  orderId:
+                                                      myOrdersList[index].id!,
+                                                  orderTime: myOrdersList[index]
+                                                          .orderDate! +
+                                                      "  " +
+                                                      myOrdersList[index]
+                                                          .orderTime!,
+                                                  totalPrice:
+                                                      myOrdersList[index]
+                                                          .total!,
+                                                  currency: "  " +
+                                                      myOrdersList[index]
+                                                          .orderCurency!,
+                                                  notes: myOrdersList[index]
+                                                      .notes!);
+                                            } else {
+                                              return SizedBox();
+                                            }
+                                          }
+                                        }),
+                                  )
+                                : (_tabedButton == 1)
+                                    ? Expanded(
+                                        child: ListView.builder(
+                                            itemCount: myOrdersList.length,
+                                            itemBuilder: (context, index) {
+                                              if (myOrdersList.isEmpty) {
+                                                return customText(
+                                                    txt: "No confirmed Orders",
+                                                    fw: FontWeight.bold,
+                                                    fs: 16);
+                                              } else {
+                                                if (myOrdersList[index]
+                                                        .orderSet ==
+                                                    "1") {
+                                                  return buildOrderCard(
+                                                      orderId:
+                                                          myOrdersList[index]
+                                                              .id!,
+                                                      orderTime: myOrdersList[
+                                                                  index]
+                                                              .orderDate! +
+                                                          "  " +
+                                                          myOrdersList[index]
+                                                              .orderTime!,
+                                                      totalPrice:
+                                                          myOrdersList[index]
+                                                              .total!,
+                                                      currency: "  " +
+                                                          myOrdersList[index]
+                                                              .orderCurency!,
+                                                      notes: myOrdersList[index]
+                                                          .notes!);
+                                                } else {
+                                                  return SizedBox();
+                                                }
+                                              }
+                                            }),
+                                      )
+                                    : Expanded(
+                                        child: ListView.builder(
+                                            itemCount: myOrdersList.length,
+                                            itemBuilder: (context, index) {
+                                              if (myOrdersList.isEmpty) {
+                                                return customText(
+                                                    txt: "No confirmed Orders",
+                                                    fw: FontWeight.bold,
+                                                    fs: 16);
+                                              } else {
+                                                if (myOrdersList[index]
+                                                        .orderSet ==
+                                                    "2") {
+                                                  return buildOrderCard(
+                                                      orderId:
+                                                          myOrdersList[index]
+                                                              .id!,
+                                                      orderTime: myOrdersList[
+                                                                  index]
+                                                              .orderDate! +
+                                                          "  " +
+                                                          myOrdersList[index]
+                                                              .orderTime!,
+                                                      totalPrice:
+                                                          myOrdersList[index]
+                                                              .total!,
+                                                      currency: "  " +
+                                                          myOrdersList[index]
+                                                              .orderCurency!,
+                                                      notes: myOrdersList[index]
+                                                          .notes!);
+                                                } else {
+                                                  return SizedBox();
+                                                }
+                                              }
+                                            }),
+                                      )
+                        : Center(
+                            child: customText(
+                                txt: "Login to can see Your orders",
+                                fw: FontWeight.bold,
+                                fs: 16),
+                          ),
                   ],
                 ),
               ),
@@ -60,7 +208,14 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
 
   buildRegisterNav(BuildContext context) {
     return InkWell(
-      onTap: (){}, //todo navig to login register screen
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ),
+        );
+      }, //todo navig to login register screen
       child: Row(
         children: [
           Padding(
@@ -68,7 +223,8 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             child: CircleAvatar(
               radius: MediaQuery.of(context).size.height * 0.03,
               backgroundColor: Colors.lightGreen,
-              foregroundImage: const AssetImage('assets/profile_placeholder.jpg'),
+              foregroundImage:
+                  const AssetImage('assets/profile_placeholder.jpg'),
             ),
           ),
           Container(
@@ -78,9 +234,10 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
             ),
             //margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.all(7),
-            child:  Text(
+            child: Text(
               //'Creat New Account / Login',
-              AppLocalizations.of(context)!.creat_new_account_myorders +' / '+
+              AppLocalizations.of(context)!.creat_new_account_myorders +
+                  ' / ' +
                   AppLocalizations.of(context)!.login_myorders,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
@@ -100,7 +257,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          is_logged_in.$ ? buildRegisterNav(context) : const SizedBox(),
+          !is_logged_in.$ ? buildRegisterNav(context) : const SizedBox(),
           IconButton(
               onPressed: () {}, icon: const Icon(Icons.notifications_outlined)),
         ],
@@ -138,12 +295,12 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _tabedButton=0;
+                    _tabedButton = 0;
                   });
                 },
                 icon: Image.asset(
                   'assets/schedule.png',
-                  color:_tabedButton==0? MyTheme.golden:MyTheme.dark_grey,
+                  color: _tabedButton == 0 ? MyTheme.golden : MyTheme.dark_grey,
                   //fit: BoxFit.cover,
                 ),
               ),
@@ -164,12 +321,12 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _tabedButton=1;
+                    _tabedButton = 1;
                   });
                 },
                 icon: Image.asset(
                   'assets/product.png',
-                  color: _tabedButton==1? MyTheme.golden:MyTheme.dark_grey,
+                  color: _tabedButton == 1 ? MyTheme.golden : MyTheme.dark_grey,
                   //fit: BoxFit.cover,
                 ),
               ),
@@ -190,12 +347,12 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
               IconButton(
                 onPressed: () {
                   setState(() {
-                    _tabedButton=2;
+                    _tabedButton = 2;
                   });
                 },
                 icon: Image.asset(
                   'assets/delivery-truck.png',
-                  color: _tabedButton==2? MyTheme.golden:MyTheme.dark_grey,
+                  color: _tabedButton == 2 ? MyTheme.golden : MyTheme.dark_grey,
                   //fit: BoxFit.cover,
                 ),
               ),
@@ -235,51 +392,73 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
         //     ],
         //   ),
         // ),
-
       ],
     );
   }
-  
-  buildOrderCard (BuildContext context){
+
+  buildOrderCard(
+      {required String orderId,
+      required String orderTime,
+      required String totalPrice,
+      required String currency,
+      required String notes}) {
     return Card(
-      child: Column(
-        children: [
-           BuildListTile(title: "OrderID ",trailing: "xdtr77"),
-           SizedBox(height: 6,),
-           BuildListTile(title: "Order Time ",trailing: "5/3/2021 09:35:00"),
-           SizedBox(height: 6,),
-           Row(children: [
-             BuildListTile(title: "Total Price ",trailing: "700"),
-             SizedBox(width: 10,),
-             Text("Pound",style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
-           ],),
-           SizedBox(height: 6,),
-           BuildListTile(title: "Notes ",trailing: "This notes for test "),
-           SizedBox(height: 6,),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            BuildListTile(title: "OrderID ", trailing: "${orderId}"),
+            SizedBox(
+              height: 6,
+            ),
+            BuildListTile(title: "Order Time ", trailing: "${orderTime}"),
+            SizedBox(
+              height: 6,
+            ),
+            Row(
+              children: [
+                BuildListTile(title: "Total Price ", trailing: "${totalPrice}"),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "${currency}",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            BuildListTile(title: "Notes ", trailing: "${notes}"),
+            SizedBox(
+              height: 6,
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  BuildListTile({required String title, required String trailing}){
+  BuildListTile({required String title, required String trailing}) {
     return Row(
-            children: [
-              customText(txt: "$title", fw: FontWeight.bold, fs: 16),
-              SizedBox(width: 6,),
-              customText(txt: ": ", fw:FontWeight.bold, fs: 16),
-              customText(txt: "$trailing", fw: FontWeight.normal, fs: 16),
-            ],
-          );
-         
+      children: [
+        customText(txt: "$title", fw: FontWeight.bold, fs: 16),
+        SizedBox(
+          width: 6,
+        ),
+        customText(txt: ": ", fw: FontWeight.bold, fs: 16),
+        customText(txt: "$trailing", fw: FontWeight.normal, fs: 16),
+      ],
+    );
   }
 
-  customText({required String txt,required FontWeight fw,required double fs}){
-    return Text('$txt',style: 
-    TextStyle(
-      fontWeight: fw,
-      fontSize: fs,
-      overflow: TextOverflow.ellipsis
-    ),
+  customText(
+      {required String txt, required FontWeight fw, required double fs}) {
+    return Text(
+      '$txt',
+      style: TextStyle(
+          fontWeight: fw, fontSize: fs, overflow: TextOverflow.ellipsis),
     );
   }
 }

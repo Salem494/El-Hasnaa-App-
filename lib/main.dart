@@ -89,7 +89,7 @@ class _MyAppState extends State<MyApp> {
               ],
               locale: provider.locale,
               supportedLocales: LangConfig().supportedLocales(),
-              home: CategoryDetais(),
+              home: Splash(),
               //RegisterScreen(),
               //Splash(),
               // ProductDetails(product:Products.fromJson(proTest),),

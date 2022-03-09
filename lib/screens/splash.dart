@@ -20,15 +20,8 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     Timer(const Duration(seconds: 5),(){
-
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
-
-
-//        if(country_id.$ == "" ){
-//          Navigator.push(context, MaterialPageRoute(builder: (context)=>ChosesCountry()));
-//        }else{
-//          Navigator.push(context, MaterialPageRoute(builder: (context)=>Main()));
-//        }
+             //RegisterScreen()
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>RegisterScreen(),),);
 
     });
     // TODO: implement initState

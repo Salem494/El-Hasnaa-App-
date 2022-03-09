@@ -55,13 +55,16 @@ class _WishlistState extends State<Wishlist> {
   }
 
   Future<void> _onPressRemove(index) async {
-    var wishlist_id = _wishlistItems[index].id;
-    _wishlistItems.removeAt(index);
-    setState(() {});
+    print('wish list   length  ${_wishlistItems.length}');
+
+    var wishlist_id = _wishlistItems[index].id; 
 
     var wishlistDeleteResponse =
         await Favorites().removeFavourite(_wishlistItems[index].id!);
-
+    
+    _wishlistItems.removeAt(index);  
+    
+    setState(() {});
     // if (wishlistDeleteResponse.result == true) {
     //   ToastComponent.showDialog(wishlistDeleteResponse.message, context,
     //       gravity: Toast.TOP, duration: Toast.LENGTH_SHORT);
@@ -186,7 +189,13 @@ class _WishlistState extends State<Wishlist> {
                         child: ClipRRect(
                             borderRadius: const BorderRadius.horizontal(
                                 left: Radius.circular(16), right: Radius.zero),
-                            child: FadeInImage.assetNetwork(
+                            child: _wishlistItems[index].prodImg!.isEmpty?
+                            Image.asset(
+                            'assets/1.jpg',
+                            fit: BoxFit.cover,
+                            //width: double.infinity,
+                          )
+                            : FadeInImage.assetNetwork(
                               placeholder: 'assets/placeholder.png',
                               image: 'https://alhasnaa.site/files/' +
                                   _wishlistItems[index].prodImg!,

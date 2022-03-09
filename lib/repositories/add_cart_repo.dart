@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 import 'package:elhasnaa/data_model/cart_model.dart';
+import 'package:elhasnaa/data_model/my_orders_model.dart';
 import 'package:elhasnaa/data_model/products.dart';
 import 'package:elhasnaa/helpers/shared_value_helper.dart';
 import 'package:http/http.dart';
@@ -10,6 +11,7 @@ import 'package:http/http.dart' as http;
 class CartRepo{
 
   List<CartModel> _cart = [];
+  List<MyOrders> _myOrderList=[];
 
   Future<String> addCart({required String productsId,quant,colr,size}) async{
   
@@ -26,17 +28,17 @@ class CartRepo{
     }
   }
 
-  Future<String> buyCart({required totalPrice,notes,colr,size}) async{
+  Future<bool> buyCart({required totalPrice,notes}) async{
   
     String url = 'https://alhasnaa.site/api/add_order.php?user_id=${user_id.$}&total=$totalPrice&notes=$notes&country_id=${country_id.$}';
 
     Response response = await http.get(Uri.parse(url),
     );
     if(response.statusCode == 200){
-      return "200";
+      return true;
     }else{
       print(response.statusCode);
-      return "400";
+      return false;
     }
   }
 
@@ -63,7 +65,6 @@ class CartRepo{
   }
 
 
-
   Future<String> getCartDeleteResponse(String prodId) async {
     Uri url = Uri.parse("https://alhasnaa.site/api/delete_cart.php?user_id=${user_id.$}&prod_id=$prodId");
     final response = await http.delete(
@@ -79,6 +80,23 @@ class CartRepo{
       return response.body.toString();
     }
   }
+  
+  Future<List<MyOrders>?> getMyOrders()async{
+    Uri url= Uri.parse("https://alhasnaa.site/api/get_user_order.php?user_id=${user_id.$}");
+
+    var myOrderResponse=await http.get(url);
+    if(myOrderResponse.statusCode==200){
+      var body = json.decode(myOrderResponse.body);
+      for(var item in body){
+        _myOrderList.add(MyOrders.fromJson(item));
+      }
+      return _myOrderList;
+    }
+    else{
+      return null;
+    }
+  }
 
 }
 //Success
+
