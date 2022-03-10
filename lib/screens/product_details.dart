@@ -782,7 +782,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: //_productDetails != null
                           widget.product.prodNameAr!.isNotEmpty
                               ? Text(
-                            widget.product.prodNameAr!,//_productDetails.name,
+                            localizeName(widget.product),//_productDetails.name,
                             style: TextStyle(
                                 fontSize: 16,
                                 color: MyTheme.font_grey,
@@ -1933,7 +1933,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: Text(
-                widget.product.brandNameAr!, //_productDetails.brand.name,
+                localizeBrandName(widget.product), //_productDetails.brand.name,
                 style: const TextStyle(
                     color: Color.fromRGBO(152, 152, 153, 1), fontSize: 16),
               ),
@@ -1978,9 +1978,9 @@ class _ProductDetailsState extends State<ProductDetails> {
               Expandable(
                 collapsed: SizedBox(
                     height: 50,
-                    child: Html(data:widget.product.prodDescAr)//_productDetails.description)
+                    child: Html(data:localizeDescName(widget.product))//_productDetails.description)
                 ),
-                expanded: Container(child: Html(data: widget.product.prodDescAr)),//_productDetails.description)),
+                expanded: Container(child: Html(data: localizeDescName(widget.product))),//_productDetails.description)),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -2185,6 +2185,36 @@ class _ProductDetailsState extends State<ProductDetails> {
       );
     },
   );
+  String localizeName(Products prod) {
+    if (app_mobile_language.$ == 'en') {
+      return prod.prodNameEn!;
+    } else if (app_language.$ == 'ar') {
+      return prod.prodNameAr!;
+    } else {
+      return prod.prodNameTr!;
+    }
+  }
+
+  String localizeDescName(Products prod) {
+    if (app_mobile_language.$ == 'en') {
+      return prod.prodDescEn!;
+    } else if (app_language.$ == 'ar') {
+      return prod.prodDescAr!;
+    } else {
+      return prod.prodDescTr!;
+    }
+  }
+
+  String localizeBrandName(Products prod) {
+    if (app_mobile_language.$ == 'en') {
+      return prod.brandNameEn!;
+    } else if (app_language.$ == 'ar') {
+      return prod.brandNameAr!;
+    } else {
+      return prod.brandNameTr!;
+    }
+  }
+
 
   buildProductImageSection() {
     if (_productImageList.isEmpty) {

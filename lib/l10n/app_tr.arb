@@ -443,5 +443,11 @@
   "seller_details_screen_no_top_selling_products": "Bu satıcıdan en çok satan ürün yok",
   "seller_details_screen_no_new_arrival": "Yeni gelen yok",
   "seller_details_screen_btn_view_all_products": "Bu Satıcıdan Tüm Ürünleri Görüntüle",
-  "seller_products_screen_search_products_of_shop": "Mağazanın ürünlerini ara"
+  "seller_products_screen_search_products_of_shop": "Mağazanın ürünlerini ara",
+  "all_catg":"tüm",
+  "my_order_no_order_pending":"Bekleyen sipariş yok",
+  "my_order_no_progress_orders":"Devam eden sipariş yok",
+  "my_order_no_delivered_orders":"Teslim edilen sipariş yok",
+  "login_by_google":"Google'dan Giriş",
+  "login_screen_or":"VEYA"
 }

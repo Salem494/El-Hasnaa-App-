@@ -86,7 +86,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                         itemBuilder: (context, index) {
                                           if (myOrdersList.isEmpty) {
                                             return customText(
-                                                txt: "No confirmed Orders",
+                                                txt: "${AppLocalizations.of(context)!.my_order_no_order_pending}",
                                                 fw: FontWeight.bold,
                                                 fs: 16);
                                           } else {
@@ -122,7 +122,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                             itemBuilder: (context, index) {
                                               if (myOrdersList.isEmpty) {
                                                 return customText(
-                                                    txt: "No confirmed Orders",
+                                                    txt:"${AppLocalizations.of(context)!.my_order_no_progress_orders}", 
                                                     fw: FontWeight.bold,
                                                     fs: 16);
                                               } else {
@@ -159,7 +159,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                             itemBuilder: (context, index) {
                                               if (myOrdersList.isEmpty) {
                                                 return customText(
-                                                    txt: "No confirmed Orders",
+                                                    txt:"${AppLocalizations.of(context)!.my_order_no_delivered_orders}", 
                                                     fw: FontWeight.bold,
                                                     fs: 16);
                                               } else {
@@ -192,7 +192,7 @@ class _MyOrdersScreenState extends State<MyOrdersScreen> {
                                       )
                         : Center(
                             child: customText(
-                                txt: "Login to can see Your orders",
+                                txt: "${AppLocalizations.of(context)!.common_login_warning}",
                                 fw: FontWeight.bold,
                                 fs: 16),
                           ),

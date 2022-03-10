@@ -451,5 +451,11 @@
 "under_confirmation_my_orders":"قيد التأكيد",
 "being_processed_myorder":"قيد التجهيز",
 "delivered_my_order":"تم الشحن",
-"evaluation_my_order":"تقييم"
+"evaluation_my_order":"تقييم",
+"all_catg":"الجميع",
+"my_order_no_order_pending":"لا يوجد طلبات قيد التأكيد",
+"my_order_no_progress_orders":"لا يوجد طلبات قيد التنفيذ",
+"my_order_no_delivered_orders":"لا يوجد طلبات تم توصيلها ",
+"login_by_google":"التسجيل عن طريق جوجل",
+"login_screen_or":"أو"
 }

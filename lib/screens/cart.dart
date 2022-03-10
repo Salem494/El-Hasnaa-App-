@@ -516,7 +516,7 @@ class _CartState extends State<CartScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal:8.0),
                           child: Text(
-                            _shopList[index].brandNameAr!,//todo localization
+                            localizeBrandName(_shopList[index]),//todo localization
                             style: TextStyle(color: MyTheme.font_grey),
                           ),
                         ),
@@ -589,7 +589,7 @@ class _CartState extends State<CartScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _shopList[sellerIndex].prodNameAr!,//todo loca
+                      localizeName(_shopList[sellerIndex]),//todo loca
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: TextStyle(
@@ -701,4 +701,26 @@ class _CartState extends State<CartScreen> {
       ]),
     );
   }
+
+  String localizeName(CartModel prod) {
+    if (app_mobile_language.$ == 'en') {
+      return prod.prodNameEn!;
+    } else if (app_language.$ == 'ar') {
+      return prod.prodNameAr!;
+    } else {
+      return prod.prodNameTr!;
+    }
+  }
+ 
+  String localizeBrandName(CartModel prod) {
+    if (app_mobile_language.$ == 'en') {
+      return prod.brandNameEn!;
+    } else if (app_language.$ == 'ar') {
+      return prod.brandNameAr!;
+    } else {
+      return prod.brandNameTr!;
+    }
+  }
+
+
 }

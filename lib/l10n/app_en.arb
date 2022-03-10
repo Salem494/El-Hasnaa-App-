@@ -450,5 +450,12 @@
   "under_confirmation_my_orders":"Under Confirmation",
   "being_processed_myorder":"Being Processed",
   "delivered_my_order":"Delivered",
-  "evaluation_my_order":"Evaluation"
+  "evaluation_my_order":"Evaluation",
+  "all_catg":"All",
+  "my_order_no_order_pending":"There are no orders pending",
+  "my_order_no_progress_orders":"There are no orders in progress",
+  "my_order_no_delivered_orders":"No orders delivered",
+  "login_by_google":"Login by Google",
+  "login_screen_or":"OR"
+
 }

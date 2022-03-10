@@ -355,8 +355,8 @@ class _CategoryDetaisState extends State<CategoryDetais> {
                                     .spaceBetween,
                                 children: [
                                   Text(
-                                    _subCategoriesList[index]
-                                        .catNameAr!,
+                                   localizeName( _subCategoriesList[index])
+                                       ,
                                     style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight:
@@ -364,9 +364,9 @@ class _CategoryDetaisState extends State<CategoryDetais> {
                                         color: Colors.black),
                                   ),
                                   Row(
-                                    children: const [
+                                    children:  [
                                       Text(
-                                        "All",
+                                        AppLocalizations.of(context)!.all_catg,
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 16,
@@ -468,7 +468,7 @@ class _CategoryDetaisState extends State<CategoryDetais> {
                               height: MediaQuery.of(context).size.width * 0.1,
                               width: MediaQuery.of(context).size.width * 0.2,
                               child: Text(
-                                snapshot.data![i].catNameAr!, //todo catlang
+                                localizeName(snapshot.data![i]), //todo catlang
                                 // prodName(snapshot[i]),
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
@@ -550,6 +550,16 @@ class _CategoryDetaisState extends State<CategoryDetais> {
         });
   }
 
+  String localizeName(Categories catg) {
+    if (app_mobile_language.$ == 'en') {
+      return catg.catNameEn!;
+    } else if (app_language.$ == 'ar') {
+      return catg.catNameAr!;
+    } else {
+      return catg.catNameTr!;
+    }
+  }
+
   String catName(int index) {
     if (app_mobile_language.$ == 'en') {
       return _featuredCategoryList[index].catNameEn!;
@@ -569,6 +579,7 @@ class _CategoryDetaisState extends State<CategoryDetais> {
       return lst.prodNameTr!;
     }
   }
+
 }
 
 

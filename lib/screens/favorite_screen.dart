@@ -153,6 +153,17 @@ class _WishlistState extends State<Wishlist> {
     }
   }
 
+  String localizeName(FavModel prod) {
+    if (app_mobile_language.$ == 'en') {
+      return prod.prodNameEn!;
+    } else if (app_language.$ == 'ar') {
+      return prod.prodNameAr!;
+    } else {
+      return prod.prodNameTr!;
+    }
+  }
+
+
   buildWishListItem(index) {
     FavModel currFavpr=_wishlistItems[index];
     List<String> prImgs=[currFavpr.prodImg!];
@@ -209,7 +220,7 @@ class _WishlistState extends State<Wishlist> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                             child: Text(
-                              _wishlistItems[index].prodNameAr!,//todo localization
+                              localizeName(_wishlistItems[index]),//todo localization
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               style: TextStyle(

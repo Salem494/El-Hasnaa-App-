@@ -2,6 +2,7 @@ import 'package:elhasnaa/custom/input_decorations.dart';
 import 'package:elhasnaa/my_theme.dart';
 import 'package:elhasnaa/screens/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ Key? key }) : super(key: key);
@@ -20,8 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Login / Creat Account',
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            '${AppLocalizations.of(context)!.login_screen_log_in} / ${AppLocalizations.of(context)!.creat_new_account_myorders}', 
           ),
           backgroundColor: Colors.white,
           elevation: 0,
@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _phoneNumberController,
                         autofocus: false,
                         decoration: InputDecorations.buildInputDecoration_1(
-                            hint_text: "Phone Number"),
+                            hint_text: "${AppLocalizations.of(context)!.login_screen_phone}"),
                       ),
                     ),
                     SizedBox(
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _passwordController,
                         autofocus: false,
                         decoration: InputDecorations.buildInputDecoration_1(
-                            hint_text: "Password"),
+                            hint_text: "${AppLocalizations.of(context)!.login_screen_password}"),
                       ),
                     ),
                     SizedBox(
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 50,
                         child: Center(
                           child: Text(
-                            'Login',
+                            '${AppLocalizations.of(context)!.main_drawer_login}',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 3,
                         ),
                         Text(
-                          'OR',
+                          '${AppLocalizations.of(context)!.login_screen_or}',
                           style: TextStyle(color: Colors.grey),
                         ),
                         SizedBox(
@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                                Text(
-                            'Register By Google',
+                            '${AppLocalizations.of(context)!.login_by_google}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 16,
